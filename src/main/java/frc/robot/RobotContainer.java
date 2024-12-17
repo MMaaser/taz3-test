@@ -18,9 +18,17 @@ import frc.robot.subsystem.MagLimitDIO;
 // import frc.robot.subsystem.NoteSensorSubystem;
 import frc.robot.subsystem.CommandSwerveDrivetrain;
 import frc.robot.AutonChooser;
+import frc.robot.arm.ArmSubsystem;
+import frc.robot.arm.ArmVisionTest;
 
+import frc.robot.arm.ArmSubsystem;
+import frc.robot.VisionSubsystem;
 
 public class RobotContainer {
+
+ArmSubsystem armSub = new ArmSubsystem();
+VisionSubsystem visionSub = new VisionSubsystem();
+ArmVisionTest visionArmPose = new ArmVisionTest(armSub, visionSub);
 
   /* */
   private final SendableChooser<Command> autoChooser;
@@ -72,7 +80,7 @@ private final MagLimitDIO m_MagLimitCoPilot = new MagLimitDIO();
     joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
     joystick.b().whileTrue(drivetrain
         .applyRequest(() -> point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))));
-
+    joystick.x().whileTrue(new ArmVisionTest(armSub, visionSub));
     // reset the field-centric heading on left bumper press
     joystick.leftBumper().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldRelative()));
 
