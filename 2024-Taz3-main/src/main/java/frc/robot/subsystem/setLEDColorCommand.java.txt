@@ -1,0 +1,43 @@
+package frc.robot.tof;
+
+import frc.robot.Constants;
+import frc.robot.leds.ledSubsystem;
+
+import frc.robot.tof.noteSensorSubsystem; // Import the tofSubsystem class
+import edu.wpi.first.wpilibj2.command.Command;
+
+public class setLEDColorCommand extends Command {
+
+    private final noteSensorSubsystem m_noteSensorSub;
+    private final ledSubsystem m_ledSubsystem;
+
+    public setLEDColorCommand(noteSensorSubsystem noteSensorSub, ledSubsystem ledSubsystem) {
+        this.m_noteSensorSub = noteSensorSub;
+        this.m_ledSubsystem = ledSubsystem;
+        addRequirements(noteSensorSub, ledSubsystem);
+    }
+
+    @Override
+    public void initialize() {
+        // Initialization code here
+    }
+
+    @Override
+    public void execute() {
+        if (m_noteSensorSub.loadedState() == false) {
+            // m_ledSubsystem.changeAnimation(AnimationTypes.NoteEmpty);
+            m_ledSubsystem.NoteEmpty();
+            
+        } else if (m_noteSensorSub.loadedState() == true) {
+            // m_ledSubsystem.changeAnimation(AnimationTypes.NoteLoaded);
+            m_ledSubsystem.NoteLoaded();
+        }
+
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        // Cleanup code here
+    }
+
+}

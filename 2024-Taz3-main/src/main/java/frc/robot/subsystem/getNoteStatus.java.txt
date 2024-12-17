@@ -1,0 +1,49 @@
+package frc.robot.tof;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.tof.NoteSensorSubystem.noteSensorSubsystem;
+
+public class getNoteStatus extends Command {
+    // Write a command to get the distance from the sensor "tof"
+    // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands/creating-commands.html
+    // https://docs.wpilib.org/en/stable/docs/software/commandbased/commands/commands.html
+
+    private final noteSensorSubsystem m_noteSensorSub;
+
+    private final double m_distance;
+
+    public getNoteStatus(noteSensorSubsystem m_noteSensorSub, double m_distance /*, double m_distance*/) {
+        // Use addRequirements() here to declare subsystem dependencies.
+        this.m_noteSensorSub = m_noteSensorSub;
+        this.m_distance = m_distance;
+        addRequirements(m_noteSensorSub);    
+
+    }
+
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+        // m_tofSub.resetSensor();
+    }
+
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        m_noteSensorSub.getNoteDistance();
+    }
+
+    // Called once the command ends or is interrupted.
+    
+    @Override
+    public void end(boolean interrupted) {
+                
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
+    
+
+} // end of class

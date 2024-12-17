@@ -1,0 +1,121 @@
+package frc.robot.leds;
+
+/* 
+I THINK this is a new reference
+com.ctre.phoenix.led.CANdle Class Reference 
+https://api.ctr-electronics.com/phoenix/release/java/
+
+https://store.ctr-electronics.com/candle/
+
+*/
+import com.ctre.phoenix.led.Animation;
+import com.ctre.phoenix.led.CANdle;
+import com.ctre.phoenix.led.CANdle.LEDStripType;
+import com.ctre.phoenix.led.CANdle.VBatOutputMode;
+import com.ctre.phoenix.led.CANdleConfiguration;
+import com.ctre.phoenix.led.ColorFlowAnimation;
+import com.ctre.phoenix.led.ColorFlowAnimation.Direction;
+import com.ctre.phoenix.led.RainbowAnimation;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+public class LedSubsystem extends SubsystemBase {
+
+    private final CANdle m_candle = new CANdle(30, "rio");
+    private final int LedCount = 69;
+   
+    private Animation m_toAnimate;
+
+    private ColorFlowAnimation m_animationStatus;
+
+    public enum AnimationTypes {
+        NoteEmpty,
+        NoteLoaded,
+        NoteScore,
+        }
+
+    private AnimationTypes m_currentAnimation;
+
+ public LedSubsystem() {
+        //changeAnimation(AnimationTypes.SetAll);
+        CANdleConfiguration configAll = new CANdleConfiguration();
+        configAll.statusLedOffWhenActive = true;
+        configAll.disableWhenLOS = false;
+        configAll.stripType = LEDStripType.GRB;
+        configAll.brightnessScalar = 0.1;
+        configAll.vBatOutputMode = VBatOutputMode.Modulated;
+        m_candle.configAllSettings(configAll, 100);
+    }
+
+    public double getVbat() { return m_candle.getBusVoltage(); }
+    public double get5V() { return m_candle.get5VRailVoltage(); }
+    public void configBrightness(double percent, ledSubsystem ledSubsystem) { m_candle.configBrightnessScalar(percent, 0); }
+    public void configLos(boolean disableWhenLos) { m_candle.configLOSBehavior(disableWhenLos, 0); }
+    public void configLedType(LEDStripType type) { m_candle.configLEDType(type, 0); }
+    public void configStatusLedBehavior(boolean offWhenActive) { m_candle.configStatusLedState(offWhenActive, 0); }
+
+    public void NoteEmpty(){
+    //    changeAnimation(AnimationTypes.NoteEmpty);
+        m_animationStatus = new ColorFlowAnimation(0, 0, 255, 0, 0.75, LedCount, Direction.Forward);
+
+    }
+
+    public void NoteLoaded() {
+        // changeAnimation(AnimationTypes.NoteLoaded);
+        m_animationStatus = new ColorFlowAnimation(255, 60, 000, 0, 0.75, LedCount, Direction.Backward);
+
+    }
+
+    public void NoteScore() {
+        changeAnimation(AnimationTypes.NoteScore);
+    } 
+
+
+    /*******************************
+    Color       |   RGB Values
+    ----------------------------
+    Red         |   (255, 0, 0)
+    Green       |   (0, 255, 0)
+    Blue        |   (0, 0, 255)
+    Orange      |   (255, 165, 0)
+    Dark Orange |   (255, 60,0) looks more orange to me
+
+    ********************************/
+
+    public void changeAnimation(AnimationTypes noteStatus) {
+        
+        
+        switch(noteStatus)
+        {
+            case NoteEmpty:
+                m_toAnimate = new ColorFlowAnimation(0, 0, 255, 0, 0.75, LedCount, Direction.Forward);
+                break;
+            case NoteLoaded:
+                m_toAnimate = new ColorFlowAnimation(255, 60, 000, 0, 0.75, LedCount, Direction.Backward);
+                break;    
+            case NoteScore:
+                m_toAnimate = new RainbowAnimation(1, 0.1, LedCount);
+                break;
+         }
+
+        System.out.println("Changed to " + m_currentAnimation.toString());
+    }
+
+
+    
+
+    /* 
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        if(m_toAnimate == null) {
+            m_candle.setLEDs((int)(joystick.getLeftTriggerAxis() * 255), 
+                              (int)(joystick.getRightTriggerAxis() * 255), 
+                              (int)(joystick.getLeftX() * 255));
+        } else {
+            m_candle.animate(m_toAnimate);
+        }
+        m_candle.modulateVBatOutput(joystick.getRightY());
+    }
+    */
+}

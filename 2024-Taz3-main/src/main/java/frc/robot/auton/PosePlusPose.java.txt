@@ -1,0 +1,36 @@
+package frc.robot.auton;
+
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.CommandSwerveDrivetrain;
+
+
+import frc.robot.arm.ArmSubsystem;
+
+import com.pathplanner.lib.path.PathPlannerPath;
+
+public class PosePlusPose extends SequentialCommandGroup {
+
+    public PosePlusPose (CommandSwerveDrivetrain m_drive, ArmSubsystem m_arm) {
+        /*Getting a path group will only retrieve the paths added to that auto. Any other commands added to the auto will not be included. */
+        PathPlannerPath pathGroup6 = PathPlannerPath.fromPathFile("6PathWithArmPose");
+
+        // PathPlannerTrajectory test2 = PathPlanner.loadPath("1102TestBumpReturn", 5.0, 3.0);
+        // PathPlannerTrajectory test3 = PathPlanner.loadPath("1102TestBumpThird", 5.0, 3.0);
+        // PathPlannerTrajectory test4 = PathPlanner.loadPath("1102TestBumpThirdReturn", 5.0, 3.0);
+        
+             
+            addRequirements(m_drive, m_arm);
+            /* */
+            addCommands(
+                        // new PathPlannerPath(pathGroup6);
+                        // m_drive.FollowPathCommand(pathGroup6),  
+                        // m_drive.followPathWithEvents(pathGroup6)
+                        // s_drive.followTrajectoryCommand(test, true).alongWith(new ArmToSetpoint(m_arm, Constants.Arm.FLOORLOAD).alongWith(new InstantCommand(() -> lilKick.home()).alongWith(new IntakeIn(i_Intake)))),
+                        // s_drive.followTrajectoryCommand(test2, false).alongWith(new ArmToSetpoint(a_Arm, Constants.Arm.SUBSTATION)),
+                        // s_Swerve.followTrajectoryCommand(test3, false).alongWith(new IntakeIn(i_Intake).alongWith(new ArmToSetpoint(a_Arm, Constants.Arm.FLOORLOAD))),            
+                        // s_Swerve.followTrajectoryCommand(test4, false).alongWith(new ArmToSetpoint(a_Arm, Constants.Arm.STOW)),
+                    
+                    );
+            
+    }
+}

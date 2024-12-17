@@ -1,0 +1,30 @@
+package frc.robot;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.playingwithfusion.TimeOfFlight.RangingMode;
+import com.playingwithfusion.TimeOfFlight.Status;
+
+public class ToFSubsystem extends SubsystemBase {
+    // private final TimeOfFlightSensor tofSensor;
+    TimeOfFlight tofSensor = new TimeOfFlight(0x52);  // Replace 0x52 with the actual sensor address
+
+    private static final TimeOfFlight.RangingMode tofRange = short;
+
+    public ToFSubsystem(TimeOfFlightSensor tofSensor) {
+        this.tofSensor = tofSensor;
+        // Additional initialization if needed
+    }
+
+    // Method to get distance from the Time of Flight sensor
+    public double getDistance() {
+        return tofSensor.getDistance();
+    }
+
+    // Additional methods for controlling or utilizing the sensor can be added here
+
+    @Override
+    public void periodic() {
+        // The code here will be run every robot control loop
+        // You can use this for continuous sensor monitoring or other periodic tasks
+    }
+}

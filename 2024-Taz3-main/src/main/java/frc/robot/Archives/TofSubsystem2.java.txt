@@ -1,0 +1,33 @@
+package frc.robot;
+
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import com.playingwithfusion.TimeOfFlight;
+import com.playingwithfusion.TimeOfFlight.RangingMode;
+import com.playingwithfusion.TimeOfFlight.Status;
+
+public class TimeOfFlightSubsystem extends SubsystemBase {
+
+    // Assuming sensor is connected to I2C port
+    private final TimeOfFlight tof = new TimeOfFlight(TimeOfFlight.RANGE_2M, I2C.Port.kOnboard);
+
+    private static final TimeOfFlight.RangingMode tofRange = short;
+
+
+    private static final int TOF_CAN_ID = 1;
+
+    public TimeOfFlightSubsystem() {
+        // Set the default command for a subsystem here.
+        // setDefaultCommand(new MySpecialCommand());
+    }
+
+    // Method to get the distance measured by the sensor
+    public double getDistance() {
+        return tof.getRange();
+    }
+
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+        // You can add any necessary periodic code here.
+    }
+}

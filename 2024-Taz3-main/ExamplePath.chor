@@ -1,0 +1,85 @@
+{
+    "version": "v0.2.1",
+    "robotConfiguration": {
+        "mass": 61.73998083590995,
+        "rotationalInertia": 6,
+        "motorMaxTorque": 1.163975155279503,
+        "motorMaxVelocity": 4640,
+        "gearing": 6.75,
+        "wheelbase": 0.7492995953782184,
+        "trackWidth": 0.723899609094211,
+        "bumperLength": 0.8762995267982555,
+        "bumperWidth": 0.8762995267982555,
+        "wheelRadius": 0.050799972568014815
+    },
+    "paths": {
+        "NewPath": {
+            "waypoints": [
+                {
+                    "x": 1.35,
+                    "y": 5.62,
+                    "heading": 3.14,
+                    "isInitialGuess": false,
+                    "translationConstrained": true,
+                    "headingConstrained": true,
+                    "controlIntervalCount": 40
+                },
+                {
+                    "x": 3,
+                    "y": 5.57,
+                    "heading": 3.14,
+                    "isInitialGuess": false,
+                    "translationConstrained": true,
+                    "headingConstrained": true,
+                    "controlIntervalCount": 40
+                }
+            ],
+            "trajectory": [],
+            "constraints": [
+                {
+                    "scope": [
+                        "first"
+                    ],
+                    "type": "StopPoint",
+                    "uuid": "e907204c-42f3-4c3c-aed3-1c202c724361"
+                },
+                {
+                    "scope": [
+                        "last"
+                    ],
+                    "type": "StopPoint",
+                    "uuid": "a19a0a7b-2e26-4588-bbfb-ef9a48319808"
+                }
+            ],
+            "usesControlIntervalGuessing": true,
+            "defaultControlIntervalCount": 40,
+            "usesDefaultFieldObstacles": true,
+            "circleObstacles": []
+        },
+        "New Path": {
+            "waypoints": [],
+            "trajectory": [],
+            "constraints": [
+                {
+                    "scope": [
+                        "first"
+                    ],
+                    "type": "StopPoint",
+                    "uuid": "6e97e9a2-50ab-418b-acf3-16331f2ca87f"
+                },
+                {
+                    "scope": [
+                        "last"
+                    ],
+                    "type": "StopPoint",
+                    "uuid": "e8df025b-f0e0-48b2-ad04-2381571ddb22"
+                }
+            ],
+            "usesControlIntervalGuessing": true,
+            "defaultControlIntervalCount": 40,
+            "usesDefaultFieldObstacles": true,
+            "circleObstacles": []
+        }
+    },
+    "splitTrajectoriesAtStopPoints": false
+}

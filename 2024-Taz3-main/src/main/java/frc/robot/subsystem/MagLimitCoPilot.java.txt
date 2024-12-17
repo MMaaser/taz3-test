@@ -1,0 +1,33 @@
+package frc.robot.subsystem;
+
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+/* 
+Write a subsystem that use a REV magnetic limit switch.
+It should be command based java.
+It plugs into the I2C port on the roboRIO.
+Return two methods: one that returns true if the sensor is triggered, and one that resets the encoder value for a CTRE TalonFX motor controller.
+*/
+public class MagLimitCoPilot extends SubsystemBase {
+    private final I2C revMagneticLimitSwitch;
+
+    public MagLimitCoPilot() {
+        revMagneticLimitSwitch = new I2C(I2C.Port.kOnboard, 0x20); // Replace 0x12 with the actual I2C address of the REV magnetic limit switch
+    }
+
+    public boolean isSensorTriggered() {
+        byte[] buffer = new byte[1];
+        revMagneticLimitSwitch.readOnly(buffer, 1);
+        return buffer[0] == 1; // Modify this condition based on the actual sensor output
+    }
+
+    public void resetEncoderValue() {
+        // Replace "talonFX" with the actual instance of CTRE TalonFX motor controller
+        // talonFX.setSelectedSensorPosition(0);
+    }
+   @Override
+    public void periodic(){
+        SmartDashboard.putBoolean("Mag Limit Switch", isSensorTriggered());
+    }
+}
